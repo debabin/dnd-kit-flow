@@ -31,17 +31,11 @@ export type EntityCardNodeType = Node<
 export type AppNode = EntityCardNodeType;
 
 export interface AppState {
-  currentDragNode: { position: { x: number; y: number }; type: Entity['type'] } | undefined;
-  currentDragOverNode: EntityCardNodeType | undefined;
   edges: Edge[];
   nodes: AppNode[];
   onConnect: OnConnect;
   onEdgesChange: OnEdgesChange;
   onNodesChange: OnNodesChange<AppNode>;
-  clearCurrentDragNode: () => void;
-  clearCurrentDragOverNode: () => void;
-  setCurrentDragNode: (position: { x: number; y: number }, type: Entity['type']) => void;
-  setCurrentDragOverNode: (overNode: EntityCardNodeType) => void;
   setEdges: (edges: Edge[]) => void;
   setNodeEntities: (nodeId: string, entities: Entity[]) => void;
   setNodes: (nodes: AppNode[]) => void;

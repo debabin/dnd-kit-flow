@@ -1,14 +1,13 @@
+import { addEdge, applyEdgeChanges, applyNodeChanges } from '@xyflow/react';
 import { create } from 'zustand';
-import { addEdge, applyNodeChanges, applyEdgeChanges } from '@xyflow/react';
 
 import type { AppState } from './types';
-import { initialNodes, initialEdges } from './data';
+
+import { initialEdges, initialNodes } from './data';
 
 const useStore = create<AppState>((set, get) => ({
   nodes: initialNodes,
   edges: initialEdges,
-  currentDragNode: undefined,
-  currentDragOverNode: undefined,
 
   setNodeEntities: (nodeId, entities) => {
     set({
@@ -16,22 +15,6 @@ const useStore = create<AppState>((set, get) => ({
         node.id === nodeId ? { ...node, data: { ...node.data, entities } } : node
       )
     });
-  },
-
-  clearCurrentDragNode: () => {
-    set({ currentDragNode: undefined });
-  },
-
-  clearCurrentDragOverNode: () => {
-    set({ currentDragOverNode: undefined });
-  },
-
-  setCurrentDragNode: (position, type) => {
-    set({ currentDragNode: { position, type } });
-  },
-
-  setCurrentDragOverNode: (overNode) => {
-    set({ currentDragOverNode: overNode });
   },
 
   onNodesChange: (changes) => {

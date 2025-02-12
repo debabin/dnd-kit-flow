@@ -1,6 +1,6 @@
-import { Edge } from '@xyflow/react';
+import type { Edge } from '@xyflow/react';
 
-import { AppNode } from './types';
+import type { AppNode } from './types';
 
 export const initialEdges = [
   { id: 'e1-2', source: '1', target: '2' },
