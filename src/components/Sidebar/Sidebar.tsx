@@ -9,21 +9,23 @@ import type { AppNode, Entity } from '../../stores';
 import useStore from '../../stores';
 import { SidebarItem } from './components/SidebarItem';
 
-export const LIST = [
-  {
-    type: 'text',
-    label: 'Text node',
-    icon: TextIcon
-  },
-  {
-    type: 'image',
-    label: 'Image node',
-    icon: ImageIcon
-  }
-];
-
 export const Sidebar = () => {
   const reactFlow = useReactFlow();
+
+  const LIST = [
+    {
+      id: Date.now(),
+      type: 'text',
+      label: 'Text node',
+      icon: TextIcon
+    },
+    {
+      id: Date.now(),
+      type: 'image',
+      label: 'Image node',
+      icon: ImageIcon
+    }
+  ];
 
   const [parentRef, _, setValues] = useDragAndDrop<HTMLUListElement>(LIST, {
     group: 'nodes',
@@ -31,9 +33,14 @@ export const Sidebar = () => {
     disabled: false,
     nativeDrag: false,
     onDragend: (e) => {
-      const { nodes, setNodes } = useStore.getState();
+      const { nodes, setNodes, setNodeEntities } = useStore.getState();
 
-      if (e.draggedNode.el.tagName !== 'LI') return setValues((prev) => prev);
+      if (e.draggedNode.el.tagName !== 'LI' && e.parent.el.dataset.entityCardId) {
+        setValues(LIST);
+        setNodeEntities(e.parent.el.dataset.entityCardId, e.values as Entity[]);
+
+        return;
+      }
 
       const viewport = reactFlow.getViewport();
 
@@ -54,6 +61,7 @@ export const Sidebar = () => {
       };
 
       setNodes([...nodes, newNode]);
+      setValues(LIST);
     }
   });
 

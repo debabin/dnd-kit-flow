@@ -6,15 +6,9 @@ import { Handle, Position } from '@xyflow/react';
 
 import type { EntityCardNodeType } from '../../../stores';
 
-export const EntityCard = ({ data }: NodeProps<EntityCardNodeType>) => {
+export const EntityCard = ({ data, id }: NodeProps<EntityCardNodeType>) => {
   const [parentRef, entities] = useDragAndDrop<any>(data.entities, {
     group: 'nodes',
-    handleNodeDragover: () => {
-      console.log('fdsfdsad');
-    },
-    onSort: () => {
-      console.log('sort');
-    },
     plugins: [animations()]
   });
 
@@ -22,7 +16,7 @@ export const EntityCard = ({ data }: NodeProps<EntityCardNodeType>) => {
     <div className='max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md'>
       <Handle type='target' position={Position.Top} />
       <h2 className='mb-2 text-lg'>{data.title}</h2>
-      <div ref={parentRef} className='flex flex-col gap-2'>
+      <div ref={parentRef} className='flex flex-col gap-2' data-entity-card-id={id}>
         {entities.map((entity: any) => (
           <div key={entity.id}>
             {entity.type === 'text' && (
