@@ -1,10 +1,12 @@
-import { ReactFlow, MiniMap, Controls, Background } from '@xyflow/react';
-
-import '@xyflow/react/dist/style.css';
+import { Background, Controls, MiniMap, ReactFlow } from '@xyflow/react';
 import { useShallow } from 'zustand/shallow';
 
-import useStore, { AppState } from '../../stores';
+import type { AppState } from '../../stores';
+
+import useStore from '../../stores';
 import { EntityCard } from './components';
+
+import '@xyflow/react/dist/style.css';
 
 const selector = (state: AppState) => ({
   nodes: state.nodes,
@@ -23,13 +25,13 @@ export const Flow = () => {
     <div className='p-4 h-screen w-[88%]'>
       <div className='w-full h-full p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700'>
         <ReactFlow
-          proOptions={{ hideAttribution: true }}
-          nodes={nodes}
           edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
+          nodes={nodes}
           nodeTypes={nodeTypes}
+          onConnect={onConnect}
+          onEdgesChange={onEdgesChange}
+          onNodesChange={onNodesChange}
+          proOptions={{ hideAttribution: true }}
         >
           <Controls />
           <MiniMap />
