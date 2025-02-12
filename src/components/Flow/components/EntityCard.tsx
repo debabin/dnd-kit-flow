@@ -1,25 +1,22 @@
 import type { NodeProps } from '@xyflow/react';
 
-import { DndContext } from '@dnd-kit/core';
 import { animations } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import { Handle, Position } from '@xyflow/react';
 
 import type { EntityCardNodeType } from '../../../stores';
 
-export const EntityCard = ({ id, data }: NodeProps<EntityCardNodeType>) => {
+export const EntityCard = ({ data }: NodeProps<EntityCardNodeType>) => {
   const [parentRef, entities] = useDragAndDrop<any>(data.entities, {
     group: 'nodes',
-    plugins: [animations()],
-    onDragstart: (e) => {
-      console.log('start', e);
+    handleNodeDragover: () => {
+      console.log('fdsfdsad');
     },
-    onDragend: (e) => {
-      console.log('end', e);
-    }
+    onSort: () => {
+      console.log('sort');
+    },
+    plugins: [animations()]
   });
-
-  console.log('@@', id);
 
   return (
     <div className='max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md'>

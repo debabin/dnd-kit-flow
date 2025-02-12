@@ -7,7 +7,6 @@ import { ImageIcon, TextIcon } from 'lucide-react';
 import type { AppNode, Entity } from '../../stores';
 
 import useStore from '../../stores';
-import { Draggable } from '../DnD/Draggable';
 import { SidebarItem } from './components/SidebarItem';
 
 export const LIST = [
@@ -24,15 +23,18 @@ export const LIST = [
 ];
 
 export const Sidebar = () => {
-  const { nodes, setNodes } = useStore();
   const reactFlow = useReactFlow();
 
-  const [parentRef] = useDragAndDrop<HTMLUListElement>(LIST, {
+  const [parentRef, _, setValues] = useDragAndDrop<HTMLUListElement>(LIST, {
     group: 'nodes',
     sortable: false,
-    // ставим false чтобы x y были верными при drag end
+    disabled: false,
     nativeDrag: false,
     onDragend: (e) => {
+      const { nodes, setNodes } = useStore.getState();
+
+      if (e.draggedNode.el.tagName !== 'LI') return setValues((prev) => prev);
+
       const viewport = reactFlow.getViewport();
 
       const position = reactFlow.screenToFlowPosition({
@@ -41,7 +43,7 @@ export const Sidebar = () => {
       });
 
       const newNode: AppNode = {
-        id: `${nodes.length + 1}`,
+        id: Date.now().toString(),
         type: 'entityCard',
         position,
         data: {

@@ -2,14 +2,14 @@ import type { Edge, Node, OnConnect, OnEdgesChange, OnNodesChange } from '@xyflo
 
 export interface TextEntity {
   id: number;
-  type: 'text';
   label: string;
+  type: 'text';
 }
 
 export interface ImageEntity {
   id: number;
-  type: 'image';
   src: string;
+  type: 'image';
 }
 
 export interface GhostEntity {
@@ -17,7 +17,7 @@ export interface GhostEntity {
   type: 'ghost';
 }
 
-export type Entity = TextEntity | ImageEntity | GhostEntity;
+export type Entity = GhostEntity | ImageEntity | TextEntity;
 
 export type EntityCardNodeType = Node<
   {
@@ -31,18 +31,18 @@ export type EntityCardNodeType = Node<
 export type AppNode = EntityCardNodeType;
 
 export interface AppState {
-  nodes: AppNode[];
-  edges: Edge[];
-  currentDragOverNode: EntityCardNodeType | undefined;
   currentDragNode: { position: { x: number; y: number }; type: Entity['type'] } | undefined;
-  setCurrentDragNode: (position: { x: number; y: number }, type: Entity['type']) => void;
+  currentDragOverNode: EntityCardNodeType | undefined;
+  edges: Edge[];
+  nodes: AppNode[];
+  onConnect: OnConnect;
+  onEdgesChange: OnEdgesChange;
+  onNodesChange: OnNodesChange<AppNode>;
   clearCurrentDragNode: () => void;
   clearCurrentDragOverNode: () => void;
-  setNodeEntities: (nodeId: string, entities: Entity[]) => void;
+  setCurrentDragNode: (position: { x: number; y: number }, type: Entity['type']) => void;
   setCurrentDragOverNode: (overNode: EntityCardNodeType) => void;
-  onNodesChange: OnNodesChange<AppNode>;
-  onEdgesChange: OnEdgesChange;
-  onConnect: OnConnect;
-  setNodes: (nodes: AppNode[]) => void;
   setEdges: (edges: Edge[]) => void;
+  setNodeEntities: (nodeId: string, entities: Entity[]) => void;
+  setNodes: (nodes: AppNode[]) => void;
 }
