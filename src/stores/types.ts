@@ -12,12 +12,13 @@ export interface ImageEntity {
   type: 'image';
 }
 
-export interface GhostEntity {
+export interface ButtonEntity {
   id: number;
-  type: 'ghost';
+  label: string;
+  type: 'button';
 }
 
-export type Entity = GhostEntity | ImageEntity | TextEntity;
+export type Entity = ButtonEntity | ImageEntity | TextEntity;
 
 export type EntityCardNodeType = Node<
   {
@@ -34,6 +35,7 @@ export interface AppState {
   edges: Edge[];
   nodes: AppNode[];
   onConnect: OnConnect;
+  deleteNode: (nodeId: string) => void;
   onEdgesChange: OnEdgesChange;
   onNodesChange: OnNodesChange<AppNode>;
   setEdges: (edges: Edge[]) => void;

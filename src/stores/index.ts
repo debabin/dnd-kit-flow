@@ -16,7 +16,11 @@ const useStore = create<AppState>((set, get) => ({
       )
     });
   },
-
+  deleteNode: (nodeId: string) => {
+    set({
+      nodes: get().nodes.filter((node) => node.id !== nodeId)
+    });
+  },
   onNodesChange: (changes) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes)

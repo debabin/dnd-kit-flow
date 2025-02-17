@@ -16,7 +16,7 @@ export const initialNodes = [
       title: 'Input',
       entities: [
         { type: 'text', label: 'Input 1', id: 1 },
-        { type: 'text', label: 'Input 2', id: 2 }
+        { type: 'button', label: 'Button 1', id: 2 }
       ]
     },
     position: { x: 250, y: 50 }
@@ -28,9 +28,12 @@ export const initialNodes = [
     data: {
       id: 2,
       title: 'Input',
-      entities: [{ type: 'text', label: 'Input', id: 3 }]
+      entities: [
+        { type: 'text', label: 'Input', id: 3 },
+        { type: 'button', label: 'Button 2', id: 4 }
+      ]
     },
-    position: { x: 10, y: 225 }
+    position: { x: 400, y: 300 }
   },
   {
     id: '3',
@@ -40,9 +43,13 @@ export const initialNodes = [
       title: 'Input',
       entities: [
         { type: 'text', label: 'Input', id: 4 },
-        { type: 'image', src: '', id: 5 }
+        {
+          type: 'image',
+          src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWBqmciyT4ZAathzJOwyz3iQ6tvEn9T-npjA&s',
+          id: 5
+        }
       ]
     },
-    position: { x: 350, y: 450 }
+    position: { x: 600, y: 650 }
   }
 ] satisfies AppNode[];
